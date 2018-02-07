@@ -9,3 +9,10 @@
 ###> symfony/web-server-bundle ###
 .web-server-pid
 ###< symfony/web-server-bundle ###
+/src/Controller/luckyController.php
+/templates/lucky
+.env.dist
+composer.json
+coposer.lock
+/config/
+symfony.lock
