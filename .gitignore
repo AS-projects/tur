@@ -11,7 +11,3 @@
 ###< symfony/web-server-bundle ###
 /src/Controller/luckyController.php
 /templates/lucky
-.env.dist
-composer.json
-coposer.lock
-symfony.lock
