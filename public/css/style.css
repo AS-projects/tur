@@ -1,3 +1,19 @@
 body{
     background-color: red;
 }
+
+header
+{
+    width : 100%;
+    background-color: green;
+}
+
+nav h2
+{
+    display: inline;
+}
+
+.active
+{
+    color: white;
+}

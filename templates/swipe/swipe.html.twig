@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{# swipe.html.twig #}
+{% block swipeButton %}
+    <h2 class='active'>Swipe</h2>
+{% endblock %}
+{% block body %}
+    <h1>Displaying ranking number {{ number }}</h1>
+    <a href="{{ path('app_swipe_display_ranking', {'currentRanking': number}) }}">Open ranking</a>
+    <a href="{{ path('app_swipe_next', {'currentRanking': number}) }}">Next ranking</a>
+{% endblock %}

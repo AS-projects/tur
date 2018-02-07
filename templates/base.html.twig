@@ -3,9 +3,23 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}TUR{% endblock %}</title>
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link href="{{ asset('css/reset.css') }}" rel="stylesheet" />
+            <link href="{{ asset('css/simple-grid.css') }}" rel="stylesheet" />
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+        {% endblock %}
     </head>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">{% block homeButton %}<h2>Home</h2>{% endblock %}</a></li>
+                <li><a href="/swipe">{% block swipeButton %}<h2>Swipe</h2>{% endblock %}</a></li>
+                <li><a href="/ranking">{% block rankingButton %}<h2>Ranking</h2>{% endblock %}</a></li>
+                <li><a href="/search">{% block searchButton %}<h2>Search</h2>{% endblock %}</a></li>
+                <li><a href="/categories">{% block categoriesButton %}<h2>Categories</h2>{% endblock %}</a></li>
+            </ul>
+        </nav>
+    </header>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
