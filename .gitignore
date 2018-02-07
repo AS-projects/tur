@@ -14,5 +14,4 @@
 .env.dist
 composer.json
 coposer.lock
-/config/
 symfony.lock
