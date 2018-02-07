@@ -35,4 +35,4 @@ I'll merge when needed.
 
 `composer require doctrine maker`
 
-Might need : `composer require webserver`
+`composer require webserver --dev`
