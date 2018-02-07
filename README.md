@@ -26,3 +26,8 @@ I'll merge when needed.
 * @TheKirin80
 * @Riyook Scrum Master
 * @Speedlulu DevOps
+
+## Don't forget to :
+`composer require annotations`
+`composer require asset`
+`composer require doctrine maker`
