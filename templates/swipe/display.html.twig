@@ -2,6 +2,10 @@
 {# swipe.html.twig #}
 {% block swipeButtonArgs %}active{% endblock %}
 {% block body %}
-    <h1>You are reading ranking number {{ number }}</h1>
-    <a href="{{ path('app_swipe_display_card', {'rankingToDisplay': number}) }}">Go back to swiping</a>
+    <div class="col"></div>
+    <article class="col-12">
+        <h1>You are reading ranking number {{ number }}</h1>
+        <a href="{{ path('app_swipe_display_card', {'rankingToDisplay': number}) }}">Go back to swiping</a>
+    </article>
+    <div class="col"></div>
 {% endblock %}

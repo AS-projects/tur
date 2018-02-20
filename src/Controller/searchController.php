@@ -14,8 +14,23 @@ class searchController extends Controller
     */
     public function search()
     {
-        $defaultRanking = 12;
-        return $this->render('search.html.twig', array('number' => $defaultRanking));
+        if (isset($_POST["searchQuery"]))
+        {
+            $searchQuery = $_POST["searchQuery"];
+        }
+        else
+        {
+            $searchQuery = 12;
+        }
+        return $this->redirectToRoute('app_displaySearch', array('searchQuery'=>$searchQuery));
+    }
+
+    /**
+    *   @Route("/search/{searchQuery}", name="app_displaySearch");
+    */
+    public function displaySearch($searchQuery)
+    {
+        return $this->render('search.html.twig', array('searchQuery' => $searchQuery));
     }
 
 }

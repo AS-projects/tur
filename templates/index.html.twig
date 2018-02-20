@@ -2,5 +2,9 @@
 {# templates/lucky/number.html.twig #}
 {% block homeButtonArgs %}active{% endblock %}
 {% block body %}
-     <a href="/swipe"><img src={{ asset('img/logoHome.png') }} alt="TUR Logo 1"></a> 
+    <div class="col"></div>
+    <article class="col-12">
+        <a href="/swipe"><img src={{ asset('img/logoHome.png') }} alt="TUR Logo 1" id="homeLogo"></a>
+    </article>
+    <div class="col"></div>
 {% endblock %}

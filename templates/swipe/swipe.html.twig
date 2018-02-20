@@ -2,7 +2,10 @@
 {# swipe.html.twig #}
 {% block swipeButtonArgs %}active{% endblock %}
 {% block body %}
-    <h1>Displaying ranking number {{ number }}</h1>
-    <a href="{{ path('app_swipe_display_ranking', {'currentRanking': number}) }}">Open ranking</a>
-    <a href="{{ path('app_swipe_next', {'currentRanking': number}) }}">Next ranking</a>
+    <div class="col"></div>
+    <article class="card col-8">
+        <h1>Ranking #{{ number }}</h1>
+        <a href="{{ path('app_swipe_display_ranking', {'currentRanking': number}) }}"><img src="{{asset('img/test.jpg')}}" class="cardTopImage rounded-circle mx-auto"/></a>
+    </article>
+    <div class="col"><a href="{{ path('app_swipe_next', {'currentRanking': number}) }}"><img src="{{asset('img/arrow.png ')}}" id="nextArrow"/></a></div>
 {% endblock %}

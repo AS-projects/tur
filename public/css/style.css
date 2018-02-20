@@ -1,24 +1,87 @@
-body
+html
 {
-    background-image: url("background.png");
     height: 100%;
 }
 
-#body
+body
+{
+    /*background-image: url("background.png");*/
+    background-color: grey;
+    padding-top: 65px;
+    padding-bottom: 10px;
+    height: 100%;
+}
+
+body > div.container
 {
     height: 100%;
-    margin-top: 65px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    background-color: white;
+}
+
+#content
+{
+    height: 100%;
+}
+
+article
+{
     text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    height: 100%;
+}
+
+#homeLogo
+{
+    height: 100%;
+    width: auto;
 }
 
 .navbar-brand {
   padding: 0px;
 }
+
 .navbar-brand>img {
   height: 100%;
   padding: 15px;
   width: auto;
+}
+
+.card
+{
+    text-align: center;
+    padding: 5px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.cardTray
+{
+
+}
+
+.cardTopImage
+{
+    display: block;
+    height: 200px;
+    width: 200px;
+}
+
+.cardTitle
+{
+
+}
+
+.cardRank
+{
+
+}
+
+.cardDescription
+{
+
+}
+
+#nextArrow
+{
+    height: 100px;
 }
