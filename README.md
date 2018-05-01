@@ -38,3 +38,5 @@ I'll merge when needed.
 `composer require webserver --dev`
 
 `composer require twbs/bootstrap:4.0.0`
+
+`composer require form`
