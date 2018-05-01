@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Ranking;
+use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RankingController extends Controller
 {
@@ -46,8 +48,9 @@ class RankingController extends Controller
 
         $form = $this->createFormBuilder($ranking)
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('image', FileType::class, array('label' => 'Image'))
+            ->add('description', TextareaType::class, array('required' => False))
+            ->add('category', EntityType::class, array('class' => Category::class, 'choice_label' => 'title'))
+            ->add('image', FileType::class, array('label' => 'Image', 'required' => False))
             ->add('save', SubmitType::class, array('label' => 'Create Ranking'))
             ->getForm();
 
@@ -60,20 +63,30 @@ class RankingController extends Controller
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form["image"]->getData();
 
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $file = $form["image"]->getData();
 
-            // moves the file to the directory where brochures are stored
-            $file->move(
-                $this->getParameter('rankingImage_directory'),
-                $fileName
-            );
+            if ($file == NULL)
+            {
+                $ranking = $form->getData();
+                $ranking->setImage(NULL);
+            }
+            else
+            {
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-            // updates the 'brochure' property to store the PDF file name
-            // instead of its contents
+                // moves the file to the directory where brochures are stored
+                $file->move(
+                    $this->getParameter('rankingImage_directory'),
+                    $fileName
+                );
 
-            $ranking = $form->getData();
+                // updates the 'brochure' property to store the PDF file name
+                // instead of its contents
+
+                $ranking = $form->getData();
+                $ranking->setImage($fileName);
+            }
             $ranking->setVotes(0);
-            $ranking->setImage($fileName);
             // ... perform some action, such as saving the task to the database
             // for example, if Task is a Doctrine entity, save it!
             // $entityManager = $this->getDoctrine()->getManager();

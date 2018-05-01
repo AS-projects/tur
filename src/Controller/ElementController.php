@@ -34,8 +34,8 @@ class ElementController extends Controller
 
         $form = $this->createFormBuilder($element)
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('image', FileType::class, array('label' => 'Image'))
+            ->add('description', TextareaType::class, array('required' => False))
+            ->add('image', FileType::class, array('label' => 'Image', 'required' => False))
             ->add('ranking', EntityType::class, array('class' => Ranking::class, 'choice_label' => 'name'))
             ->add('save', SubmitType::class, array('label' => 'Create Element'))
             ->getForm();
@@ -49,20 +49,30 @@ class ElementController extends Controller
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form["image"]->getData();
 
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $file = $form["image"]->getData();
 
-            // moves the file to the directory where brochures are stored
-            $file->move(
-                $this->getParameter('elementImage_directory'),
-                $fileName
-            );
+            if ($file == NULL)
+            {
+                $element = $form->getData();
+                $element->setImage(NULL);
+            }
+            else
+            {
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-            // updates the 'brochure' property to store the PDF file name
-            // instead of its contents
+                // moves the file to the directory where brochures are stored
+                $file->move(
+                    $this->getParameter('elementImage_directory'),
+                    $fileName
+                );
 
-            $ranking = $form->getData();
-            $ranking->setVotes(0);
-            $ranking->setImage($fileName);
+                // updates the 'brochure' property to store the PDF file name
+                // instead of its contents
+
+                $element = $form->getData();
+                $element->setImage($fileName);
+            }
+            $element->setVotes(0);
             // ... perform some action, such as saving the task to the database
             // for example, if Task is a Doctrine entity, save it!
             // $entityManager = $this->getDoctrine()->getManager();
@@ -72,7 +82,7 @@ class ElementController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
 
             // tell Doctrine you want to (eventually) save the Product (no queries yet)
-            $entityManager->persist($ranking);
+            $entityManager->persist($element);
 
             // actually executes the queries (i.e. the INSERT query)
             $entityManager->flush();
