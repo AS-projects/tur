@@ -85,3 +85,9 @@ article
 {
     height: 100px;
 }
+
+#rankingImage
+{
+    max-height: 30%;
+    max-width: 100%;
+}

@@ -4,8 +4,13 @@
 {% block body %}
     <div class="col"></div>
     <article class="card col-8 animated bounceInRight">
-        <h1>Ranking #{{ number }}</h1>
-        <a href="{{ path('app_swipe_display_ranking', {'currentRanking': number}) }}"><img src="{{asset('img/test.jpg')}}" class="cardTopImage rounded-circle mx-auto"/></a>
+        <h1>{{ ranking.name }}</h1>
+        <a href="{{ path('app_swipe_display_ranking', {'currentRanking': ranking.id}) }}"><img src="{{asset('uploads/rankingImage/' ~ ranking.image)}}" class="cardTopImage rounded-circle mx-auto"/></a>
+        <ul>
+            {% for element in ranking.elements|slice(0,3) %}
+                <li> {{ element.name }} {{ element.votes }} {{ element.description }} <img src="{{ asset('uploads/elementImage/') ~ element.image }}"> </li>
+            {% endfor %}
+        </ul>
     </article>
-    <div class="col"><a href="{{ path('app_swipe_next', {'currentRanking': number}) }}"><img src="{{asset('img/arrow.png ')}}" id="nextArrow"/></a></div>
+    <div class="col"><a href="{{ path('app_swipe_next', {'currentRanking': ranking.id}) }}"><img src="{{asset('img/arrow.png ')}}" id="nextArrow"/></a></div>
 {% endblock %}

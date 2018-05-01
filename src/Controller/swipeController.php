@@ -6,6 +6,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Entity\Ranking;
 
 class swipeController extends Controller
 {
@@ -16,9 +17,10 @@ class swipeController extends Controller
 
     public function displayRankingCard($rankingToDisplay)
     {
-        //DB stuff to do here
-        if ($rankingToDisplay != 0) //if it exists (temporary)
-            return $this->render('swipe/swipe.html.twig', array('number' => $rankingToDisplay));
+        $repository = $this->getDoctrine()->getRepository(Ranking::class);
+        $ranking = $repository->find($rankingToDisplay);
+        if ($ranking) //if it exists (temporary)
+            return $this->render('swipe/swipe.html.twig', array('ranking' => $ranking));
         else
             return $this->render('swipe/noRankingToDisplay.html.twig');
     }
@@ -28,9 +30,14 @@ class swipeController extends Controller
     */
     public function setSwipe()
     {
-        //get the defaultRanking (DB stuff)
-        $defaultRanking = 12;
-        return $this->displayRankingCard($defaultRanking);
+        $conn = $this->getDoctrine()->getEntityManager()->getConnection();
+
+        $sql = 'SELECT id FROM ranking WHERE id = (SELECT MIN(id) FROM ranking)';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        // returns an array of arrays (i.e. a raw data set)
+
+        return $this->displayRankingCard($stmt->fetchAll()[0]["id"]);
     }
 
     /**
@@ -39,17 +46,21 @@ class swipeController extends Controller
 
     public function nextRankingCard($currentRanking)
     {
-        return $this->redirectToRoute('app_swipe_display_card', array('rankingToDisplay'=>$currentRanking+1));
-    }
+        $conn = $this->getDoctrine()->getEntityManager()->getConnection();
+        $sql = 'SELECT id FROM ranking WHERE id > :ranking ORDER BY id LIMIT 1';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['ranking' => $currentRanking]);
+        // returns an array of arrays (i.e. a raw data set)
 
-    /**
-    *   @Route("/swipe/display/{currentRanking}", name="app_swipe_display_ranking");
-    */
+        $next = $stmt->fetch()["id"];
 
-    public function displayRanking($currentRanking)
-    {
-        //shit ton of DB stuff to do here
-        return $this->render('swipe/display.html.twig', array('number' => $currentRanking));
+        if ($next)
+        {
+            return $this->displayRankingCard($next);
+        }
+        else {
+            return $this->render('swipe/noRankingToDisplay.html.twig');
+        }
     }
 
 }

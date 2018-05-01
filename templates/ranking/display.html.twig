@@ -1,0 +1,19 @@
+{% extends 'baseLayout.html.twig' %}
+{# swipe.html.twig #}
+{% block swipeButtonArgs %}active{% endblock %}
+{% block body %}
+    <div class="col"></div>
+    <article class="col-12">
+        <h1>{{ ranking.name }}</h1>
+        <img id="rankingImage" src="{{ asset('uploads/rankingImage/') ~ ranking.image }}">
+        <p>{{ ranking.description }}</p>
+        <p>{{ ranking.votes }}</p>
+        <ul>
+            {% for element in ranking.elements %}
+                <li> {{ element.name }} {{ element.votes }} {{ element.description }} <img src="{{ asset('uploads/elementImage/') ~ element.image }}"> </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ path('app_swipe_display_card', {'rankingToDisplay': ranking.id  }) }}">Go back to swiping</a>
+    </article>
+    <div class="col"></div>
+{% endblock %}
