@@ -14,7 +14,12 @@
                     </div>
                     <div class="col"><a href="/ranking/downvote/{{ ranking.id }}">-</a></div>
                 </div>
-                <div class ="col"><a href="{{ path('app_swipe_display_ranking', {'currentRanking': ranking.id}) }}"><img src="{{asset('uploads/rankingImage/' ~ ranking.image)}}" class="cardTopImage rounded-circle mx-auto"/></a></div>
+                <div class ="col">
+                    <a href="{{ path('app_swipe_display_ranking', {'currentRanking': ranking.id}) }}"><img src="{% if ranking.image is not null %}{{asset('uploads/rankingImage/' ~ ranking.image)}}{% else %}{{asset('uploads/placeholder.png' ~ ranking.image)}}{% endif %}" class="cardTopImage rounded-circle mx-auto"/></a>
+                    {% if ranking.category is not null %}
+                        <p>{{ ranking.category.title }}</p>
+                    {% endif %}
+                </div>
                 <div class="col"></div>
             </div>
         </header>

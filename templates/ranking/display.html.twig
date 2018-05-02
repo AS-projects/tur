@@ -6,7 +6,10 @@
     <article class="col-12">
         <header>
             <h1>{{ ranking.name }}</h1>
-            <img id="rankingImage" src="{{ asset('uploads/rankingImage/') ~ ranking.image }}">
+            <img id="rankingImage" src="{% if ranking.image is not null %}{{asset('uploads/rankingImage/' ~ ranking.image)}}{% else %}{{asset('uploads/placeholder.png' ~ ranking.image)}}{% endif %}">
+            {% if ranking.category is not null %}
+                <p>{{ ranking.category.title }}</p>
+            {% endif %}
             <p>{{ ranking.votes }}</p>
         </header>
         <div class="horizontalDivider"></div>
