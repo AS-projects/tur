@@ -4,13 +4,38 @@
 {% block body %}
     <div class="col"></div>
     <article class="card col-8 animated bounceInRight">
-        <h1>{{ ranking.name }}</h1>
-        <a href="{{ path('app_swipe_display_ranking', {'currentRanking': ranking.id}) }}"><img src="{{asset('uploads/rankingImage/' ~ ranking.image)}}" class="cardTopImage rounded-circle mx-auto"/></a>
-        <ul>
-            {% for element in ranking.elements|slice(0,3) %}
-                <li> {{ element.name }} {{ element.votes }} {{ element.description }} <img src="{{ asset('uploads/elementImage/') ~ element.image }}"> </li>
-            {% endfor %}
-        </ul>
+        <header>
+            <h1>{{ ranking.name }}</h1>
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="col"><a href="/ranking/upvote/{{ ranking.id }}">+</a></div>
+                    <div class="col">
+                        {{ ranking.votes }}
+                    </div>
+                    <div class="col"><a href="/ranking/downvote/{{ ranking.id }}">-</a></div>
+                </div>
+                <div class ="col"><a href="{{ path('app_swipe_display_ranking', {'currentRanking': ranking.id}) }}"><img src="{{asset('uploads/rankingImage/' ~ ranking.image)}}" class="cardTopImage rounded-circle mx-auto"/></a></div>
+                <div class="col"></div>
+            </div>
+        </header>
+        <div class="horizontalDivider"></div>
+        <main class="cardMain">
+            <section>
+                <p>
+                    {{ ranking.description }}
+                </p>
+            </section>
+
+            <div class="horizontalDivider"></div>
+
+            <section>
+                <ul class="cardElementList">
+                    {% for element in ranking.elements|slice(0,5) %}
+                        <li class="cardElement {% if loop.first %}firstCardElement{% endif %}"> {{ element.votes }} <img src="{{ asset('uploads/elementImage/') ~ element.image }}"> {{ element.name }} </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </main>
     </article>
     <div class="col"><a href="{{ path('app_swipe_next', {'currentRanking': ranking.id}) }}"><img src="{{asset('img/arrow.png ')}}" id="nextArrow"/></a></div>
 {% endblock %}

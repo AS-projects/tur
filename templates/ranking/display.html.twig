@@ -4,16 +4,31 @@
 {% block body %}
     <div class="col"></div>
     <article class="col-12">
-        <h1>{{ ranking.name }}</h1>
-        <img id="rankingImage" src="{{ asset('uploads/rankingImage/') ~ ranking.image }}">
-        <p>{{ ranking.description }}</p>
-        <p>{{ ranking.votes }}</p>
-        <ul>
-            {% for element in ranking.elements %}
-                <li> {{ element.name }} {{ element.votes }} {{ element.description }} <img src="{{ asset('uploads/elementImage/') ~ element.image }}"> </li>
-            {% endfor %}
-        </ul>
-        <a href="{{ path('app_swipe_display_card', {'rankingToDisplay': ranking.id  }) }}">Go back to swiping</a>
+        <header>
+            <h1>{{ ranking.name }}</h1>
+            <img id="rankingImage" src="{{ asset('uploads/rankingImage/') ~ ranking.image }}">
+            <p>{{ ranking.votes }}</p>
+        </header>
+        <div class="horizontalDivider"></div>
+        <main>
+            <p>{{ ranking.description }}</p>
+            <div class="horizontalDivider"></div>
+                {% for element in ranking.elements %}
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="col"><a href="/element/upvote/{{ element.id }}/{{ ranking.id}}">+</a></div>
+                            <div class="col">
+                                {{ element.votes }}
+                            </div>
+                            <div class="col"><a href="/element/downvote/{{ element.id }}/{{ ranking.id}}">-</a></div>
+                        </div>
+                        <div class="col-8"> <h3>{{ element.name }}</h3> <img src="{{ asset('uploads/elementImage/') ~ element.image }}"> <p>{{ element.description }}</p> </div>
+                        <div class="col"></div>
+                        <div class="horizontalDivider"></div>
+                    </div>
+                {% endfor %}
+            <a href="{{ path('app_swipe_display_card', {'rankingToDisplay': ranking.id  }) }}">Go back to swiping</a>
+        </main>
     </article>
     <div class="col"></div>
 {% endblock %}

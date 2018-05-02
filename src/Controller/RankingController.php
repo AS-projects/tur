@@ -120,4 +120,32 @@ class RankingController extends Controller
         return md5(uniqid());
     }
 
+    /**
+    *   @Route("ranking/upvote/{rankingToVote}", name="app_upvote_ranking");
+    */
+    public function upvoteRanking($rankingToVote)
+    {
+        $conn = $this->getDoctrine()->getEntityManager()->getConnection();
+
+        $sql = 'UPDATE ranking SET votes = votes + 1  WHERE id = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array('id' => $rankingToVote));
+
+        return $this->redirectToRoute('app_swipe_display_card', array('rankingToDisplay' => $rankingToVote));
+    }
+
+    /**
+    *   @Route("ranking/downvote/{rankingToVote}", name="app_downvote_ranking");
+    */
+    public function downvoteRanking($rankingToVote)
+    {
+        $conn = $this->getDoctrine()->getEntityManager()->getConnection();
+
+        $sql = 'UPDATE ranking SET votes = votes - 1  WHERE id = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array('id' => $rankingToVote));
+
+        return $this->redirectToRoute('app_swipe_display_card', array('rankingToDisplay' => $rankingToVote));
+    }
+
 }

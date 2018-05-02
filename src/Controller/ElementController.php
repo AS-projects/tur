@@ -105,4 +105,33 @@ class ElementController extends Controller
         return md5(uniqid());
     }
 
+    /**
+    *   @Route("element/upvote/{elementToVote}/{rankingSender}", name="app_upvote_element");
+    */
+    public function upvoteElement($elementToVote, $rankingSender)
+    {
+        $conn = $this->getDoctrine()->getEntityManager()->getConnection();
+
+        $sql = 'UPDATE element SET votes = votes + 1  WHERE id = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array('id' => $elementToVote));
+
+        return $this->redirectToRoute('app_swipe_display_ranking', array('currentRanking'=>$rankingSender));
+    }
+
+    /**
+    *   @Route("element/downvote/{elementToVote}/{rankingSender}", name="app_downvote_element");
+    */
+    public function downvoteElement($elementToVote, $rankingSender)
+    {
+
+        $conn = $this->getDoctrine()->getEntityManager()->getConnection();
+
+        $sql = 'UPDATE element SET votes = votes - 1  WHERE id = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array('id' => $elementToVote));
+
+        return $this->redirectToRoute('app_swipe_display_ranking', array('currentRanking'=>$rankingSender));
+    }
+
 }

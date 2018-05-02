@@ -27,7 +27,23 @@ article
     text-align: center;
     background-color: white;
     border-radius: 5px;
-    height: 100%;
+    object-fit: contain;
+}
+
+img
+{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+ul
+{
+    padding-left: 0px;
+}
+
+li
+{
+    list-style: none;
 }
 
 #homeLogo
@@ -52,6 +68,8 @@ article
     padding: 5px;
     background-color: white;
     border-radius: 10px;
+    object-fit: contain;
+    height: 100%;
 }
 
 .cardTray
@@ -90,4 +108,48 @@ article
 {
     max-height: 30%;
     max-width: 100%;
+}
+
+.cardElementList
+{
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+}
+
+.cardElement
+{
+    list-style: none;
+    padding-left: 3px;
+    text-align: left;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 2px;
+    height: 50px;
+    display: block;
+}
+
+.firstCardElement
+{
+    height: 100px;
+}
+
+.cardElement > img
+{
+    height: 100%;
+    object-fit: contain;
+}
+
+.cardMain
+{
+}
+
+.horizontalDivider
+{
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
