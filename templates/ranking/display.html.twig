@@ -17,6 +17,7 @@
             <p>{{ ranking.description }}</p>
             <div class="horizontalDivider"></div>
                 {% for element in ranking.elements %}
+                    <div class="anchorDiv" id="{{ element.id }}"></div>
                     <div class="row align-items-center">
                         <div class="col">
                             <div class="col"><a href="/element/upvote/{{ element.id }}/{{ ranking.id}}">+</a></div>

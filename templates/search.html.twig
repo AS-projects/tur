@@ -7,6 +7,35 @@
     <div class="col"></div>
     <article class="col-12">
         <h1>Search</h1>
-        <p>Searching : {{ searchQuery }}</p>
+        <h2>Searching : {{ searchQuery }}</h2>
+
+        {% if rankings is not empty %}
+            <h2>Rankings</h2>
+            <ul>
+                {% for ranking in rankings %}
+                    <li><a href="ranking/{{ ranking.id }}">{{ ranking.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% elseif elements is not empty %}
+            <h2>Elements</h2>
+            <ul>
+                {% for element in elements %}
+                    <li><a href="ranking/{{ element.ranking.id }}#{{ element.id }}">{{ element.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% elseif categories is not empty %}
+            <h2>Categories</h2>
+            {% for category in categories %}
+                <h3>{{ category.title }}</h3>
+                <ul>
+                    {% for ranking in category.rankings %}
+                        <li><a href="ranking/{{ ranking.id }}">{{ ranking.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        {% else %}
+            <p> Nothing found </p>
+        {% endif %}
+
     <div class="col"></div>
 {% endblock %}

@@ -6,6 +6,9 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Entity\Category;
+use App\Entity\Ranking;
+use App\Entity\Element;
 
 class searchController extends Controller
 {
@@ -14,24 +17,33 @@ class searchController extends Controller
     */
     public function search()
     {
-        if (isset($_POST["searchQuery"]))
+        if ($_POST["searchQuery"]!= NULL)
         {
             $searchQuery = $_POST["searchQuery"];
+
+            $repository = $this->getDoctrine()->getRepository(Ranking::class);
+
+            $rankings = $repository->findBy(
+                ['name' => $_POST["searchQuery"]],
+                ['votes' => 'DESC']);
+
+            $repository = $this->getDoctrine()->getRepository(Element::class);
+
+            $elements = $repository->findBy(
+                ['name' => $_POST["searchQuery"]],
+                ['votes' => 'DESC']);
+
+            $repository = $this->getDoctrine()->getRepository(Category::class);
+
+            $categories = $repository->findBy(
+                ['title' => $_POST["searchQuery"]]);
+
+            return $this->render('search.html.twig', array('searchQuery' => $_POST["searchQuery"], 'rankings' => $rankings, 'elements' => $elements, 'categories' => $categories));
         }
         else
         {
-            $searchQuery = 12;
+            return $this->redirectToRoute('index');
         }
-        return $this->redirectToRoute('app_displaySearch', array('searchQuery'=>$searchQuery));
     }
-
-    /**
-    *   @Route("/search/{searchQuery}", name="app_displaySearch");
-    */
-    public function displaySearch($searchQuery)
-    {
-        return $this->render('search.html.twig', array('searchQuery' => $searchQuery));
-    }
-
 }
 ?>
