@@ -1,0 +1,21 @@
+{% extends 'baseLayout.html.twig' %}
+{# category.html.twig #}
+{% block searchButton %}
+    <h2 class='active'>Search</h2>
+{% endblock %}
+{% block body %}
+    <div class="col"></div>
+    <article class="col-12">
+        <h1>Displaying category : {{ category.title }}</h1>
+        {% if category.rankings is not empty %}
+            <ul>
+                {% for ranking in category.rankings %}
+                    <li><a href="/ranking/{{ ranking.id }}">{{ ranking.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No ranking in category</p>
+        {% endif %}
+    </article>
+    <div class="col"></div>
+{% endblock %}

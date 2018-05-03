@@ -121,23 +121,23 @@ class RankingController extends Controller
     }
 
     /**
-    *   @Route("ranking/upvote/{rankingToVote}", name="app_upvote_ranking");
+    *   @Route("ranking/upvote/{rankingToVote}/{swipeOrRanking}", name="app_upvote_ranking");
     */
-    public function upvoteRanking($rankingToVote)
+    public function upvoteRanking($rankingToVote, $swipeOrRanking)
     {
         $conn = $this->getDoctrine()->getEntityManager()->getConnection();
 
         $sql = 'UPDATE ranking SET votes = votes + 1  WHERE id = :id';
         $stmt = $conn->prepare($sql);
         $stmt->execute(array('id' => $rankingToVote));
-
-        return $this->redirectToRoute('app_swipe_display_card', array('rankingToDisplay' => $rankingToVote));
+        if ($swipeOrRanking == 0) {return $this->redirectToRoute('app_swipe_display_card', array('rankingToDisplay' => $rankingToVote));}
+        else {return $this->redirectToRoute('app_swipe_display_ranking', array('currentRanking' => $rankingToVote));}
     }
 
     /**
-    *   @Route("ranking/downvote/{rankingToVote}", name="app_downvote_ranking");
+    *   @Route("ranking/downvote/{rankingToVote}/{swipeOrRanking}", name="app_downvote_ranking");
     */
-    public function downvoteRanking($rankingToVote)
+    public function downvoteRanking($rankingToVote, $swipeOrRanking)
     {
         $conn = $this->getDoctrine()->getEntityManager()->getConnection();
 
@@ -145,7 +145,8 @@ class RankingController extends Controller
         $stmt = $conn->prepare($sql);
         $stmt->execute(array('id' => $rankingToVote));
 
-        return $this->redirectToRoute('app_swipe_display_card', array('rankingToDisplay' => $rankingToVote));
+        if ($swipeOrRanking == 0) {return $this->redirectToRoute('app_swipe_display_card', array('rankingToDisplay' => $rankingToVote));}
+        else {return $this->redirectToRoute('app_swipe_display_ranking', array('currentRanking' => $rankingToVote));}
     }
 
 }

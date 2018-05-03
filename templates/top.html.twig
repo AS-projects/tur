@@ -5,6 +5,11 @@
     <div class="col"></div>
     <article class="col-12">
         <h1>Top</h1>
+        <ul>
+            {% for ranking in rankings %}
+                <li><a href="/ranking/{{ ranking.id }}">{{ ranking.votes }} - {{ ranking.name }}</a></li>
+            {% endfor %}
+        </ul>
     </article>
     <div class="col"></div>
 {% endblock %}

@@ -5,6 +5,11 @@
     <div class="col"></div>
     <article class="col-12">
         <h1>Categories</h1>
+        <ul>
+            {% for category in categories %}
+                <li><a href="/category/{{ category.id }}">{{ category.title }}</a></li>
+            {% endfor %}
+        </ul>
     </article>
     <div class="col"></div>
 {% endblock %}

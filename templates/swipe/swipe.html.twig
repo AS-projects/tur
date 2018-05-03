@@ -8,11 +8,11 @@
             <h1>{{ ranking.name }}</h1>
             <div class="row align-items-center">
                 <div class="col">
-                    <div class="col"><a href="/ranking/upvote/{{ ranking.id }}">+</a></div>
+                    <div class="col"><a href="/ranking/upvote/{{ ranking.id }}/0">+</a></div>
                     <div class="col">
                         {{ ranking.votes }}
                     </div>
-                    <div class="col"><a href="/ranking/downvote/{{ ranking.id }}">-</a></div>
+                    <div class="col"><a href="/ranking/downvote/{{ ranking.id }}/0">-</a></div>
                 </div>
                 <div class ="col">
                     <a href="{{ path('app_swipe_display_ranking', {'currentRanking': ranking.id}) }}"><img src="{% if ranking.image is not null %}{{asset('uploads/rankingImage/' ~ ranking.image)}}{% else %}{{asset('uploads/placeholder.png' ~ ranking.image)}}{% endif %}" class="cardTopImage rounded-circle mx-auto"/></a>
