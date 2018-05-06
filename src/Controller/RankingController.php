@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Ranking;
 use App\Entity\Category;
+use App\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,11 +32,38 @@ class RankingController extends Controller
     *   @Route("ranking/{currentRanking}", name="app_swipe_display_ranking", requirements={"currentRanking"="\d+"});
     */
 
-    public function displayRanking($currentRanking)
+    public function displayRanking($currentRanking, Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Ranking::class);
         $ranking = $repository->find($currentRanking);
-        return $this->render('ranking/display.html.twig', array('ranking' => $ranking));
+
+        $comment = new Comment();
+
+        $form = $this->createFormBuilder($comment)
+            ->add('content', TextareaType::class, array('required' => True))
+            ->add('save', SubmitType::class, array('label' => 'Comment'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            $comment = $form->getData();
+            $comment->setTimestamp(new \DateTime(date('d/m/Y H:i:s')));
+            $comment->setRanking($ranking);
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            // tell Doctrine you want to (eventually) save the Product (no queries yet)
+            $entityManager->persist($comment);
+
+            // actually executes the queries (i.e. the INSERT query)
+            $entityManager->flush();
+        }
+        return $this->render('ranking/display.html.twig', array(
+            'form' => $form->createView(),
+            'ranking' => $ranking
+        ));
     }
 
     /**

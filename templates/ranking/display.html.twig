@@ -46,8 +46,26 @@
                         <div class="horizontalDivider"></div>
                     </div>
                 {% endfor %}
-            <a href="{{ path('app_swipe_display_card', {'rankingToDisplay': ranking.id  }) }}">Go back to swiping</a>
         </main>
+        <footer>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+                <div class="horizontalDivider"></div>
+                {% for comment in ranking.comments %}
+                    <div class="row align-items-center">
+                        <div class="col"></div>
+                        <div class="comment col-8">
+                            <div class="row">
+                                <p class="col-2 comment-date">{{ comment.timestamp|date('d/m/Y H:i:s') }}</h4>
+                                <p class="col">{{ comment.content }}</p>
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                {% endfor %}
+            <a href="{{ path('app_swipe_display_card', {'rankingToDisplay': ranking.id  }) }}">Go back to swiping</a>
+        </footer>
     </article>
     <div class="col"></div>
 {% endblock %}

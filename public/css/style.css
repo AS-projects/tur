@@ -158,3 +158,16 @@ li
 {
     margin-bottom: 70px;
 }
+
+.comment
+{
+    border-style: solid;
+    border-width: 1px;
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.comment-date
+{
+    font-weight: bold;
+}
