@@ -116,7 +116,7 @@ class ElementController extends Controller
         $stmt = $conn->prepare($sql);
         $stmt->execute(array('id' => $elementToVote));
 
-        return $this->redirectToRoute('app_swipe_display_ranking', array('currentRanking'=>$rankingSender));
+        return $this->redirectToRoute('app_swipe_display_ranking', array('_fragment' => $elementToVote, 'currentRanking'=>$rankingSender));
     }
 
     /**
@@ -131,7 +131,20 @@ class ElementController extends Controller
         $stmt = $conn->prepare($sql);
         $stmt->execute(array('id' => $elementToVote));
 
-        return $this->redirectToRoute('app_swipe_display_ranking', array('currentRanking'=>$rankingSender));
+        return $this->redirectToRoute('app_swipe_display_ranking', array('_fragment' => $elementToVote ,'currentRanking'=>$rankingSender));
+    }
+
+    /**
+    *   @Route("element/delete/{elementToDelete}", name="app_delete_element");
+    */
+    public function deleteElement($elementToDelete)
+    {
+        $repository = $this->getDoctrine()->getRepository(Element::class);
+        $entityManager = $this->getDoctrine()->getManager();
+        $element = $repository->findOneBy(array("id" => $elementToDelete));
+        $entityManager->remove($element);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_admin');
     }
 
 }

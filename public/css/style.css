@@ -171,3 +171,12 @@ li
 {
     font-weight: bold;
 }
+
+.adminBox
+{
+    max-height: 300px;
+    overflow-y: scroll;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 5px;
+}

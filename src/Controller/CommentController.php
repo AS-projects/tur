@@ -46,7 +46,20 @@ class CommentController extends Controller
             $entityManager->flush();
         }
         return $this->render('ranking/addRanking.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ));
+    }
+
+    /**
+    *   @Route("comment/delete/{commentToDelete}", name="app_delete_comment");
+    */
+    public function deleteComment($commentToDelete)
+    {
+        $repository = $this->getDoctrine()->getRepository(Comment::class);
+        $entityManager = $this->getDoctrine()->getManager();
+        $comment = $repository->findOneBy(array("id" => $commentToDelete));
+        $entityManager->remove($comment);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_admin');
     }
 }

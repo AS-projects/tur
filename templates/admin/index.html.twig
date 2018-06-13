@@ -1,0 +1,52 @@
+{% extends 'baseLayout.html.twig' %}
+{# top.html.twig #}
+{% block adminButtonArgs %}active{% endblock %}
+{% block body %}
+    <div class="col"></div>
+    <article class="col-12">
+        <h1>Admin Page</h1>
+        <ul>
+            <li><a href="category/add">Add Category</a></li>
+            <li><a href="ranking/add">Add Category</a></li>
+            <li><a href="element/add">Add Element</a></li>
+        </ul>
+
+        <h2>Delete Comments</h2>
+        <div class="adminBox">
+            <ul>
+            {% for comment in comments %}
+                <li><a href="ranking/{{ comment.ranking.id }}#comments">{{ comment.ranking.name }} : {{ comment.timestamp|date('d/m/Y H:i:s') }}</a> <a href="comment/delete/{{ comment.id }}">X</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <h2>Delete Element</h2>
+        <div class="adminBox">
+            <ul>
+            {% for element in elements %}
+                <li>{% if element.ranking is not null %}<a href="ranking/{{ element.ranking.id }}#{{ element.id }}">{{ element.ranking.name }} :{% endif %} {{ element.name }} : {{ element.votes }} </a> <a href="element/delete/{{ element.id }}">X</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <h2>Delete Rankings</h2>
+        <div class="adminBox">
+            <ul>
+                {% for ranking in rankings %}
+                    <li><a href="ranking/{{ ranking.id }}">{% if ranking.category is not null %}{{ ranking.category.title }} :{% endif %} {{ ranking.name }} : {{ ranking.votes }} </a> <a href="ranking/delete/{{ ranking.id }}">X</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <h2>Delete Categories</h2>
+        <div class="adminBox">
+            <ul>
+                {% for category in categories %}
+                    <li><a href="category/{{ category.id }}">{{ category.title }}</a> <a href="category/delete/{{ category.id }}">X</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </article>
+    <div class="col"></div>
+{% endblock %}

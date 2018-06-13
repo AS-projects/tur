@@ -19,33 +19,36 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item {% block homeButtonArgs %}{% endblock %}">
-                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item {% block swipeButtonArgs %}{% endblock %}">
-                <a class="nav-link" href="/swipe">Swipe<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item dropdown {% block categoriesButtonArgs %}{% endblock %}">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Catégories
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/categories/all">All</a>
-                    <a class="dropdown-item" href="/categories/SFW">SFW</a>
-                    <a class="dropdown-item" href="/categories/NSFW">NSFW</a>
-                </div>
-              </li>
-              <li class="nav-item {% block topButtonArgs %}{% endblock %}">
-                <a class="nav-link" href="/top">Top</a>
-              </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0" action="/search" method="post">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-          </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {% block homeButtonArgs %}{% endblock %}">
+                        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item {% block swipeButtonArgs %}{% endblock %}">
+                        <a class="nav-link" href="/swipe">Swipe<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown {% block categoriesButtonArgs %}{% endblock %}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Catégories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/categories/all">All</a>
+                            <a class="dropdown-item" href="/categories/SFW">SFW</a>
+                            <a class="dropdown-item" href="/categories/NSFW">NSFW</a>
+                        </div>
+                    </li>
+                    <li class="nav-item {% block topButtonArgs %}{% endblock %}">
+                        <a class="nav-link" href="/top">Top</a>
+                    </li>
+                    <li class="nav-item {% block adminButtonArgs %}{% endblock %}">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
         </nav>
     </header>
     <body>

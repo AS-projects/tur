@@ -102,4 +102,22 @@ class CategoryController extends Controller
         return md5(uniqid());
     }
 
+    /**
+    *   @Route("category/delete/{categoryToDelete}", name="app_delete_category");
+    */
+    public function deleteCategory($categoryToDelete)
+    {
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+        $entityManager = $this->getDoctrine()->getManager();
+        $category = $repository->findOneBy(array("id" => $categoryToDelete));
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'UPDATE ranking SET category_id = null WHERE category_id = :toDel';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['catId' => $categoryToDelete]);
+
+        $entityManager->remove($category);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_admin');
+    }
 }

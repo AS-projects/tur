@@ -177,4 +177,22 @@ class RankingController extends Controller
         else {return $this->redirectToRoute('app_swipe_display_ranking', array('currentRanking' => $rankingToVote));}
     }
 
+    /**
+    *   @Route("ranking/delete/{rankingToDelete}", name="app_delete_ranking");
+    */
+    public function deleteElement($rankingToDelete)
+    {
+        $repository = $this->getDoctrine()->getRepository(Ranking::class);
+        $entityManager = $this->getDoctrine()->getManager();
+        $ranking = $repository->findOneBy(array("id" => $rankingToDelete));
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'UPDATE element SET ranking_id = null WHERE ranking_id = :toDel';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['catId' => $rankingToDelete]);
+        $entityManager->remove($ranking);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_admin');
+    }
+
 }
