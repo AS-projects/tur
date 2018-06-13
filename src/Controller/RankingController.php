@@ -49,7 +49,7 @@ class RankingController extends Controller
         if ($form->isSubmitted())
         {
             $comment = $form->getData();
-            $comment->setTimestamp(new \DateTime(date('d/m/Y H:i:s')));
+            $comment->setTimestamp(new \DateTime());
             $comment->setRanking($ranking);
 
             $entityManager = $this->getDoctrine()->getManager();
