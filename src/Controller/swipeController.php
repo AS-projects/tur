@@ -37,7 +37,10 @@ class swipeController extends Controller
         $stmt->execute();
         // returns an array of arrays (i.e. a raw data set)
 
-        return $this->displayRankingCard($stmt->fetchAll()[0]["id"]);
+        $fetched = $stmt->fetchAll();
+
+        if (empty($fetched)) return $this->render('swipe/noRankingToDisplay.html.twig');
+        return $this->displayRankingCard($fetched[0]["id"]);
     }
 
     /**
